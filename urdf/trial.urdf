@@ -31,7 +31,7 @@
     <parent link='base_link'/>
     <child link='front_left_wheel'/>
     <axis xyz='0 0 1'/>
-    <origin rpy="1.57075 0 1.57075" xyz='0.535 0.595 -0.255'/>
+    <origin rpy="1.57075 0 1.57075" xyz='0.535 0.495 -0.255'/>
   </joint>
 
   <link name="front_right_wheel">
