@@ -2,7 +2,7 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    urdf_path = '/home/yash/steer_ws/src/swerve-steer/urdf/trial.urdf'
+    urdf_path = '/home/yash/steer_ws/src/swerve-steer/urdf/marsrover.urdf'
     
     with open(urdf_path, 'r') as file:
         urdf_content = file.read()
