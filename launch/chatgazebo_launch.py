@@ -8,6 +8,7 @@ import os
 def generate_launch_description():
     urdf_path = '/home/yash/steer_ws/src/swerve-steer/urdf/marsrover.urdf'
     world_path = '/home/yash/steer_ws/src/swerve-steer/worlds/empty_with_ground.world'
+    ros2_controllers_path = '/home/yash/steer_ws/src/swerve-steer/config/joint_controller.yaml'
 
     # Read URDF file
     with open(urdf_path, 'r') as file:
@@ -18,7 +19,7 @@ def generate_launch_description():
     return LaunchDescription([
         # 1. Launch Gazebo (empty world)
         IncludeLaunchDescription(PythonLaunchDescriptionSource([gazebo_launch_path]),
-                                 launch_arguments={'world':world_path}.items()
+                                 launch_arguments={'world':world_path,'verbose':'true'}.items()
                                  ),
 
         # 2. Publish robot description to parameter server
@@ -40,7 +41,31 @@ def generate_launch_description():
                 '-y', '0',
                 '-z', '7.0',
                 '--ros-args'
-            ],
+            ],  
             output='screen'
-        )
+        ),
+
+        Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[ros2_controllers_path],
+        ),
+
+        #load_joint_state_controller
+        ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'joint_state_broadcaster'],
+        output='screen'
+        ),
+
+        #load whichever controller
+        ExecuteProcess(
+            cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'velocity_controller'],
+            output='screen'),
+
+    
+
+
+
+        
     ])
