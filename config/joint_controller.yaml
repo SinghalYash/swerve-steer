@@ -9,12 +9,31 @@ controller_manager:
     velocity_controller:
       type: velocity_controllers/JointGroupVelocityController
 
+    position_controller:
+      type: position_controllers/JointGroupPositionController
+
 joint_state_broadcaster:
   ros__parameters:
     joints:
       - blockfl_to_fl
+      - blockfr_to_fr
+      - blockbl_to_bl
+      - blockbr_to_br
 
 velocity_controller:
   ros__parameters:
     joints:
       - blockfl_to_fl
+      - blockfr_to_fr
+      - blockbl_to_bl
+      - blockbr_to_br
+
+position_controller:
+  ros__parameters:
+    joints:
+      - base_to_flblock
+      - base_to_frblock
+      - base_to_blblock
+      - base_to_brblock
+
+      
