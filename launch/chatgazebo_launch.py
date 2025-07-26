@@ -7,7 +7,8 @@ import os
 
 def generate_launch_description():
     urdf_path = '/home/yash/steer_ws/src/swerve-steer/urdf/marsrover.urdf'
-    
+    world_path = '/home/yash/steer_ws/src/swerve-steer/worlds/empty_with_ground.world'
+
     # Read URDF file
     with open(urdf_path, 'r') as file:
         robot_description = file.read()
@@ -16,7 +17,9 @@ def generate_launch_description():
 
     return LaunchDescription([
         # 1. Launch Gazebo (empty world)
-        IncludeLaunchDescription(PythonLaunchDescriptionSource([gazebo_launch_path])),
+        IncludeLaunchDescription(PythonLaunchDescriptionSource([gazebo_launch_path]),
+                                 launch_arguments={'world':world_path}.items()
+                                 ),
 
         # 2. Publish robot description to parameter server
         Node(
@@ -35,7 +38,7 @@ def generate_launch_description():
                 '-topic', 'robot_description',
                 '-x', '0',
                 '-y', '0',
-                '-z', '5.0',
+                '-z', '7.0',
                 '--ros-args'
             ],
             output='screen'
