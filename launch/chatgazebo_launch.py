@@ -45,11 +45,13 @@ def generate_launch_description():
             output='screen'
         ),
 
+####################################DO NOT TOUCH#########################################
         Node(
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[ros2_controllers_path],
         ),
+####################################DO NOT TOUCH#########################################
 
         #load_joint_state_controller
         ExecuteProcess(
@@ -63,9 +65,8 @@ def generate_launch_description():
             cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'velocity_controller'],
             output='screen'),
 
-    
-
-
-
-        
-    ])
+        ExecuteProcess(
+            cmd=['ros2','control','load_controller','--set-state','active','position_controller'],
+            output='screen')
+      
+    ] )
